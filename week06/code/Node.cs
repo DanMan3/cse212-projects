@@ -13,7 +13,11 @@ public class Node
     {
         // TODO Start Problem 1
 
-        if (value < Data)
+        if (value == Data)
+        {
+            return;
+        }
+        else if (value < Data)
         {
             // Insert to the left
             if (Left is null)
@@ -33,13 +37,58 @@ public class Node
 
     public bool Contains(int value)
     {
+        bool contains = false;
+
+        if (value == Data)
+        {
+            contains = true;
+        }
+        else if (value < Data)
+        {
+            bool? doesContain = Left?.Contains(value);
+            if (doesContain == true)
+            {
+                contains = true;
+            }
+            else
+            {
+                contains = false;
+            }
+        }
+        else
+        {
+            bool? doesContain = Right?.Contains(value);
+            if (doesContain == true)
+            {
+                contains = true;
+            }
+            else
+            {
+                contains = false;
+            }
+        }
+
         // TODO Start Problem 2
-        return false;
+        return contains;
     }
 
     public int GetHeight()
     {
+        int totalLeftHeight = 0;
+        int totalRightHeight = 0;
+
+        if (Left != null)
+        {
+            totalLeftHeight = Left?.GetHeight() ?? 0;
+        }
+        if (Right != null)
+        {
+            totalRightHeight = Right?.GetHeight() ?? 0;
+        }
+
+
+
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        return 1 + System.Math.Max(totalLeftHeight, totalRightHeight);
     }
 }
